@@ -29,8 +29,6 @@
             'Git' => 'G',
             'JavaScript' => 'JS',
         ];
-
-        $showcaseProjects = $featuredProjects->isNotEmpty() ? $featuredProjects : $projects->take(3);
     @endphp
 
     <nav class="navbar">
@@ -315,13 +313,13 @@
                             <h2>Featured Projects</h2>
                         </div>
 
-                        <a href="#projects">
+                        <a href="{{ route('projects.index') }}">
                             View all projects →
                         </a>
                     </div>
 
                     <div class="project-grid">
-                        @forelse ($showcaseProjects->take(3) as $project)
+                        @forelse ($featuredProjects as $project)
                             <article class="project-card">
                                 <div class="project-thumb"></div>
 
@@ -346,29 +344,10 @@
                                 </div>
                             </article>
                         @empty
-                            @foreach ([
-                                ['title' => 'Portfolio Website', 'desc' => 'Website portofolio dinamis menggunakan Laravel, Livewire, Blade, dan Filament V3.', 'tags' => ['Laravel', 'Livewire', 'Filament']],
-                                ['title' => 'UI/UX Case Study', 'desc' => 'Rancangan tampilan aplikasi yang fokus pada pengalaman pengguna.', 'tags' => ['UI/UX', 'Design', 'Research']],
-                                ['title' => 'Admin Panel Portfolio', 'desc' => 'Panel admin untuk mengelola profile, skill, project, dan pesan kontak.', 'tags' => ['Filament', 'MariaDB', 'Docker']],
-                            ] as $demoProject)
-                                <article class="project-card">
-                                    <div class="project-thumb"></div>
-
-                                    <div class="project-body">
-                                        <h3>{{ $demoProject['title'] }}</h3>
-
-                                        <p>
-                                            {{ $demoProject['desc'] }}
-                                        </p>
-
-                                        <div class="tag-row">
-                                            @foreach ($demoProject['tags'] as $tag)
-                                                <span class="tag">{{ $tag }}</span>
-                                            @endforeach
-                                        </div>
-                                    </div>
-                                </article>
-                            @endforeach
+                            <div class="diagram-empty" style="grid-column: 1 / -1;">
+                                <strong>Belum ada project utama yang dipublish.</strong>
+                                <span>Aktifkan toggle Publish dan Project Utama di admin panel.</span>
+                            </div>
                         @endforelse
                     </div>
                 </div>
@@ -430,7 +409,7 @@
                     <li><a href="#about">About</a></li>
                     <li><a href="#skills">Skills</a></li>
                     <li><a href="#diagram">Diagram</a></li>
-                    <li><a href="#projects">Projects</a></li>
+                    <li><a href="{{ route('projects.index') }}">Projects</a></li>
                     <li><a href="#contact">Contact</a></li>
                 </ul>
             </div>
